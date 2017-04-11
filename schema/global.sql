@@ -21,7 +21,7 @@ create extension if not exists "pgcrypto";
 -- roles
 --
 --------------------------------------------
-create role chefbook_postgraphql login password 'verydifficulttoguesspass12?;';
+create role chefbook_postgraphql login password 'CHANGE_THAT_IN_PRODUCTION;';
 
 create role chefbook_anonymous;
 grant chefbook_anonymous to chefbook_postgraphql;

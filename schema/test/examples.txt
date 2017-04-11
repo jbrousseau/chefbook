@@ -1,0 +1,50 @@
+mutation {
+  authenticate(input: {email: "kaustin3@nyu.edu", password: "jQZ8mYjUNH"}) {
+    clientMutationId
+    jwtToken 
+
+  }
+}
+
+
+{
+   personById(id:2){
+    nodeId
+    fullName
+    firstName
+    lastName
+  }
+}
+
+
+{
+  searchRecipe(search: "crêpe") {
+    totalCount
+    edges {
+      cursor
+      node {
+        title
+        createdAt
+        likeCount
+        score
+        personByAuthorId {
+          firstName
+          lastName
+        }
+        recipeCategoryByCategoryId {
+          label
+        }
+        recipeCommentsByRecipeId {
+          totalCount
+          edges {
+            node {
+              authorId
+              headline
+              summary(length: 20)
+            }
+          }
+        }
+      }
+    }
+  }
+}

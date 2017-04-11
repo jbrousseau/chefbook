@@ -13,7 +13,7 @@ create table chefbook.recipe_comment (
   body             text,
   recipe_id        integer not null references chefbook.recipe(id),
   lang_id          integer not null references chefbook.lang(id),
-  reply_id         integer not null references chefbook.recipe_comment(id),
+  reply_id         integer references chefbook.recipe_comment(id),
   created_at       timestamp default now()
 );
 

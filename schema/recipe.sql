@@ -81,6 +81,9 @@ grant execute on function chefbook.search_recipe(text) to chefbook_anonymous, ch
 
 
 grant select on table chefbook.recipe to chefbook_anonymous, chefbook_person;
+
+grant select on table chefbook.recipe_category to chefbook_anonymous, chefbook_person;
+
 grant insert, update, delete on table chefbook.recipe to chefbook_person;
 grant usage on sequence chefbook.recipe_id_seq to chefbook_person;
 
