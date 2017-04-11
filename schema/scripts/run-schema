@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+cd ..
+
+psql -f global-drop.sql $@
+psql -f global.sql $@
+psql -f lang.sql $@
+psql -f ingredient.sql $@
+psql -f persons.sql $@
+psql -f recipe.sql $@
+psql -f recipe_comments.sql $@
+psql -f recipe_ingredients.sql $@
+psql -f recipe_steps.sql $@
+psql -f security.sql $@
