@@ -5,7 +5,7 @@ import LoginForm from '../components/LoginForm'
 class LoginPage extends React.Component {
   onSubmit = (login) => {
     this.props.loginPerson(login).then(() => {
-      this.props.router.push('/posts')
+      this.props.router.push('/recipes')
     }).catch(err => console.error(err))
   }
 

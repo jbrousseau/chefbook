@@ -6,11 +6,11 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <h1>Newest Topics</h1>
+        <h1>Newest Recipes</h1>
         <ul>
-          {this.props.query.newestPosts.edges.map(({ node }) => {
+          {this.props.query.newestRecipes.edges.map(({ node }) => {
             return <li key={node.id}>
-              <Link to={`/posts/${node.id}`}>{node.headline} posted on {node.createdAt}</Link>
+              <Link to={`/recipes/${node.id}`}>{node.title} posted on {node.createdAt}</Link>
               by {node.author.fullName}
             </li>
           })}
@@ -33,11 +33,11 @@ export default Relay.createContainer(HomePage, {
   fragments: {
     query: () => Relay.QL`
       fragment on Query {
-        newestPosts: allPosts(orderBy: CREATED_AT_DESC, first: 5) {
+        newestRecipes: allRecipes(orderBy: CREATED_AT_DESC, first: 5) {
           edges {
             node {
               id
-              headline
+              title
               author: personByAuthorId {
                 fullName
               }

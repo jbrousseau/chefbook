@@ -8,11 +8,10 @@ const styles = StyleSheet.create({
   },
 })
 
-function PostItem ({
+function RecipeItem ({
   id,
-  headline,
-  topic,
-  summary,
+  title,
+  score,
   author,
   createdAt,
   updatedAt,
@@ -20,14 +19,13 @@ function PostItem ({
   return (
     <article className={css(styles.container)}>
       <header>
-        <h2><Link to={`/posts/${id}`}>{headline}</Link></h2>
+        <h2><Link to={`/recipes/${id}`}>{title}</Link></h2>
         <p>by {author.fullName}</p>
       </header>
-      <div><p>{summary}</p></div>
       <aside>
         <Timestamp label="Created on " date={createdAt}/>
         <Timestamp label="Updated on " date={updatedAt}/>
-        <p>Filed under <span>{topic ? topic : 'n/a'}</span></p>
+        <p>Score <span>{score ? score : 'n/a'}</span></p>
       </aside>
     </article>
   )
@@ -40,4 +38,4 @@ function Timestamp ({ label, date }) {
   )
 }
 
-export default PostItem
+export default RecipeItem

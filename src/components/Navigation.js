@@ -5,7 +5,7 @@ function Navigation({ currentPerson, logoutPerson }) {
   return (
     <nav>
       <Link to="/">Home</Link>{' '}
-      <Link to="/posts">Posts</Link>
+      <Link to="/recipes">Recipes</Link>
       {currentPerson
         ? <button onClick={logoutPerson}>Logout</button>
         : (

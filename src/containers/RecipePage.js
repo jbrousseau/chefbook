@@ -3,36 +3,36 @@ import Relay from 'react-relay'
 import { Link, withRouter } from 'react-router'
 import { StyleSheet, css } from 'aphrodite'
 import ContentEditable from '../components/ContentEditable'
-import { UpdatePostMutation, DeletePostMutation } from '../mutations'
+import { UpdateRecipeMutation, DeleteRecipeMutation } from '../mutations'
 
-class PostPage extends React.Component {
+class RecipePage extends React.Component {
   render() {
-    const { currentPerson, post } = this.props
-    const authAndOwn = currentPerson && currentPerson.person_id === post.authorId
+    const { currentPerson, recipe } = this.props
+    const authAndOwn = currentPerson && currentPerson.person_id === recipe.authorId
 
     return (
       <article>
-        <Link to="/posts">back to Posts</Link>
+        <Link to="/recipes">back to Recipes</Link>
         <header>
           <ContentEditable
             editable={authAndOwn}
             onChange={this.handleChange} 
             tagName="h1"
-            text={post.headline}
-            data-prop="headline"
+            text={recipe.title}
+            data-prop="title"
           />
-          <p>by {post.author.fullName}</p>
+          <p>by {recipe.author.fullName}</p>
         </header>
         <ContentEditable
           editable={authAndOwn}
           onChange={this.handleChange} 
           tagName="div"
-          text={post.body}
-          data-prop="body"
+          text={recipe.score}
+          data-prop="score"
         />
         <footer>
           {authAndOwn &&
-            <button onClick={this.handleDelete}>Delete Post</button>
+            <button onClick={this.handleDelete}>Delete Recipe</button>
           }
         </footer>
       </article>
@@ -47,7 +47,7 @@ class PostPage extends React.Component {
     if (newValue === oldValue) return
 
     this.props.relay.commitUpdate(
-      new UpdatePostMutation({
+      new UpdateRecipeMutation({
         post: this.props.post,
         postPatch: { [propName]: newValue },
       })
@@ -55,9 +55,9 @@ class PostPage extends React.Component {
   }
 
   handleDelete = event => {
-    this.props.router.push('/posts')
+    this.props.router.push('/recipes')
     this.props.relay.commitUpdate(
-      new DeletePostMutation({
+      new DeleteRecipeMutation({
         query: this.props.query,
         post: this.props.post,
       })
@@ -66,23 +66,23 @@ class PostPage extends React.Component {
 
 }
 
-export default Relay.createContainer(withRouter(PostPage), {
+export default Relay.createContainer(withRouter(RecipePage), {
   fragments: {
     query: () => Relay.QL`
       fragment on Query {
-        ${DeletePostMutation.getFragment('query')}
+        ${DeleteRecipeMutation.getFragment('query')}
       }
     `,
-    post: () => Relay.QL`
-      fragment on Post {
-        headline
-        body
+    recipe: () => Relay.QL`
+      fragment on Recipe {
+        title
+        score
         authorId
         author: personByAuthorId {
           fullName
         }
-        ${UpdatePostMutation.getFragment('post')}
-        ${DeletePostMutation.getFragment('post')}
+        ${UpdateRecipeMutation.getFragment('recipe')}
+        ${DeleteRecipeMutation.getFragment('recipe')}
       }
     `,
   },

@@ -1,15 +1,10 @@
-'use strict';
+import path from 'path'
+import { DefinePlugin } from 'webpack'
 
-var path = require('path');
-var webpack = require('webpack');
-
-module.exports = {
-  context: path.resolve(__dirname, '../src'),
-  entry: {
-    app: './app.js',
-  },
+export default {
+  entry: path.resolve(__dirname, '../src/app.js'),
   module: {
-    rules: [{
+    loaders: [{
       test: /\.css$/,
       exclude: /node_modules/,
       loader: 'style-loader!css-loader?modules',
@@ -24,11 +19,7 @@ module.exports = {
     }]
   },
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, '../dist/assets'),
-    publicPath: '/assets',
-  },
-  devServer: {
-    contentBase: path.resolve(__dirname, '../src'), 
+    filename: 'app.js',
+    path: '/',
   },
 }

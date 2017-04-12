@@ -4,11 +4,11 @@ export const homeQueries = {
   query: () => Relay.QL`query { query }`,
 }
 
-export const postIndexQueries = {
+export const recipeIndexQueries = {
   query: () => Relay.QL`query { query }`,
 }
 
-export const postQueries = {
+export const recipeQueries = {
   query: () => Relay.QL`query { query }`,
-  post: () => Relay.QL`query { post(id: $postId) }`,
+  recipe: () => Relay.QL`query { recipe(id: $recipeId) }`,
 }

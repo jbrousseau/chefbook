@@ -48,3 +48,20 @@ mutation {
     }
   }
 }
+
+
+
+mutation Mutations($input_0: AuthenticateInput!) {
+  authenticate(input: $input_0) {
+    clientMutationId
+    ...F0
+  }
+}
+
+fragment F0 on AuthenticatePayload {
+  jwtToken {
+    role
+    personId
+  } 
+}
+{"input_0":{"email": "test@test.com", "password": "test", "clientMutationId": "0"}}

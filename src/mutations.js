@@ -1,10 +1,10 @@
 import Relay from 'react-relay'
 
-export class UpdatePostMutation extends Relay.Mutation {
-  // The update mutation depends on the Post `id` and `rowId` so we declare it here.
+export class UpdateRecipeMutation extends Relay.Mutation {
+  // The update mutation depends on the Recipe `id` and `rowId` so we declare it here.
   static fragments = {
-    post: () => Relay.QL`
-      fragment on Post {
+    recipe: () => Relay.QL`
+      fragment on Recipe {
         id,
         rowId,
       }
@@ -14,16 +14,16 @@ export class UpdatePostMutation extends Relay.Mutation {
   // This method should return a GraphQL operation that represents
   // the mutation to be performed.
   getMutation() {
-    return Relay.QL`mutation { updatePostByRowId }`
+    return Relay.QL`mutation { updateRecipeByRowId }`
   }
 
   // This method is used to prepare the variables that will be used as
   // input to the mutation.
   getVariables() {
-    const { post, postPatch } = this.props
+    const { recipe, recipePatch } = this.props
     return {
-      rowId: post.rowId,
-      postPatch,
+      rowId: recipe.rowId,
+      recipePatch,
     }
   }
 
@@ -31,10 +31,10 @@ export class UpdatePostMutation extends Relay.Mutation {
   // as a result of this mutation.
   getFatQuery() {
     return Relay.QL`
-      fragment on UpdatePostPayload {
-        post {
-          headline,
-          body,
+      fragment on UpdateRecipePayload {
+        recipe {
+          title,
+          score,
           updatedAt,
         },
       }
@@ -46,20 +46,20 @@ export class UpdatePostMutation extends Relay.Mutation {
     return [{
       type: 'FIELDS_CHANGE',
       fieldIDs: {
-        post: this.props.post.id,
+        recipe: this.props.recipe.id,
       },
     }]
   }
 }
 
-export class DeletePostMutation extends Relay.Mutation {
+export class DeleteRecipeMutation extends Relay.Mutation {
   static fragments = {
-    post: () => Relay.QL`fragment on Post { rowId }`,
+    recipe: () => Relay.QL`fragment on Recipe { rowId }`,
     query: () => Relay.QL`fragment on Query { id }`,
   }
 
   getMutation() {
-    return Relay.QL`mutation { deletePostByRowId }`
+    return Relay.QL`mutation { deleteRecipeByRowId }`
   }
 
   getConfigs() {
@@ -67,34 +67,34 @@ export class DeletePostMutation extends Relay.Mutation {
       type: 'NODE_DELETE',
       parentName: 'query',
       parentID: this.props.query.id,
-      connectionName: 'allPosts',
-      deletedIDFieldName: 'deletedPostId',
+      connectionName: 'allRecipes',
+      deletedIDFieldName: 'deletedRecipeId',
     }]
   }
 
   getVariables() {
     return {
-      rowId: this.props.post.rowId
+      rowId: this.props.recipe.rowId
     }
   }
 
   getFatQuery() {
     return Relay.QL`
-      fragment on DeletePostPayload {
-        deletedPostId,
-        query { allPosts },
+      fragment on DeleteRecipePayload {
+        deletedRecipeId,
+        query { allRecipes },
       }
     `
   }
 }
 
-export class CreatePostMutation extends Relay.Mutation {
+export class CreateRecipeMutation extends Relay.Mutation {
   static fragments = {
     query: () => Relay.QL`fragment on Query { id }`,
   }
 
   getMutation() {
-    return Relay.QL`mutation { createPost }`
+    return Relay.QL`mutation { createRecipe }`
   }
 
   getConfigs() {
@@ -102,8 +102,8 @@ export class CreatePostMutation extends Relay.Mutation {
       type: 'RANGE_ADD',
       parentName: 'query',
       parentID: this.props.query.id,
-      connectionName: 'allPosts',
-      edgeName: 'postEdge',
+      connectionName: 'allRecipes',
+      edgeName: 'recipeEdge',
       rangeBehaviors: {
         '': 'append',
         'orderBy(CREATED_AT_DESC)': 'prepend',
@@ -113,16 +113,16 @@ export class CreatePostMutation extends Relay.Mutation {
 
   getVariables() {
     return {
-      post: this.props.post
+      recipe: this.props.recipe
     }
   }
 
   getFatQuery() {
     return Relay.QL`
-      fragment on CreatePostPayload {
-        postEdge
+      fragment on CreateRecipePayload {
+        recipeEdge
         query {
-          allPosts
+          allRecipes
         }
       }
     `

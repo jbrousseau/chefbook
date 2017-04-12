@@ -5,7 +5,7 @@ import RegisterForm from '../components/RegisterForm'
 class RegisterPage extends React.Component {
   onSubmit = person => {
     this.props.registerPerson(person).then(() => {
-      this.props.router.push('/posts')
+      this.props.router.push('/recipes')
     }).catch(err => console.error(err))
   }
 

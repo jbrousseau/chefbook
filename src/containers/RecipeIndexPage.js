@@ -1,30 +1,30 @@
 import React from 'react'
 import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite'
-import PostItem from '../components/PostItem'
-import PostForm from '../components/PostForm'
+import RecipeItem from '../components/RecipeItem'
+import RecipeForm from '../components/RecipeForm'
 import ScrollBottomNotifier from '../utils/ScrollBottomNotifier'
-import { CreatePostMutation } from '../mutations'
+import { CreateRecipeMutation } from '../mutations'
 
-class PostIndex extends React.Component {
+class RecipeIndex extends React.Component {
   state = {
-    addingPost: false,
+    addingRecipe: false,
     loading: false,
   }
 
-  insertPost = (data) => {
+  insertRecipe = (data) => {
     this.props.relay.commitUpdate(
-      new CreatePostMutation({
+      new CreateRecipeMutation({
         query: this.props.query,
-        post: data,
+        Recipe: data,
       }), {
-      onSuccess: () => this.setAddingPost(false),
+      onSuccess: () => this.setAddingRecipe(false),
     })
   }
 
-  setAddingPost = (event, value) => {
-    const { addingPost } = this.state
-    this.setState({ addingPost: value || !addingPost })
+  setAddingRecipe = (event, value) => {
+    const { addingRecipe } = this.state
+    this.setState({ addingRecipe: value || !addingRecipe })
   }
 
   handleScrollBottom = () => {
@@ -38,16 +38,16 @@ class PostIndex extends React.Component {
     })
   }
 
-  renderPostForm() {
+  renderRecipeForm() {
     return (
       <div>
-        <button onClick={this.setAddingPost}>
-          {this.state.addingPost ? 'Cancel' : 'Add Topic'}
+        <button onClick={this.setAddingRecipe}>
+          {this.state.addingRecipe ? 'Cancel' : 'Add Topic'}
         </button>
-        {this.state.addingPost &&
-          <PostForm
+        {this.state.addingRecipe &&
+          <RecipeForm
             currentPerson={this.props.currentPerson}
-            onSubmit={this.insertPost}
+            onSubmit={this.insertRecipe}
           />
         }
       </div>
@@ -55,16 +55,16 @@ class PostIndex extends React.Component {
   }
 
   render() {
-    const { posts } = this.props.query
+    const { recipes } = this.props.query
 
     return (
       <div>
         <h1>Topics</h1>
-        {this.props.currentPerson && this.renderPostForm()}
+        {this.props.currentPerson && this.renderRecipeForm()}
         <ScrollBottomNotifier onScrollBottom={this.handleScrollBottom}>
-          {posts.edges.length && posts.edges.map(({ node: post }) =>
-            <div key={post.id}>
-              <PostItem {...post}/>
+          {recipes.edges.length && recipes.edges.map(({ node: recipe }) =>
+            <div key={recipe.id}>
+              <RecipeItem {...recipe}/>
             </div>
           )}
         </ScrollBottomNotifier>
@@ -73,14 +73,14 @@ class PostIndex extends React.Component {
   }
 }
 
-export default Relay.createContainer(PostIndex, {
+export default Relay.createContainer(RecipeIndex, {
   initialVariables: {
     count: 5,
   },
   fragments: {
     query: () => Relay.QL`
       fragment on Query {
-        posts: allPosts(
+        recipes: allRecipes(
           first: $count
           orderBy: CREATED_AT_DESC
         ) {
@@ -92,9 +92,8 @@ export default Relay.createContainer(PostIndex, {
           edges {
             node {
               id
-              headline
-              topic
-              summary
+              title
+              score
               createdAt
               updatedAt
               author: personByAuthorId {
@@ -103,7 +102,7 @@ export default Relay.createContainer(PostIndex, {
             }
           }
         }
-        ${CreatePostMutation.getFragment('query')}
+        ${CreateRecipeMutation.getFragment('query')}
       }
     `,
   },

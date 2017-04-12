@@ -6,22 +6,22 @@ import { Router, Route, Redirect, IndexRoute, browserHistory, applyRouterMiddlew
 import useRelay from 'react-router-relay'
 import App from './components/App'
 import HomePage from './containers/HomePage'
-import PostIndexPage from './containers/PostIndexPage'
-import PostPage from './containers/PostPage'
+import RecipeIndexPage from './containers/RecipeIndexPage'
+import RecipePage from './containers/RecipePage'
 import RegisterPage from './containers/RegisterPage'
 import LoginPage from './containers/LoginPage'
 import {
   homeQueries,
-  postIndexQueries,
-  postQueries,
+  recipeIndexQueries,
+  recipeQueries,
 } from './queries'
 
 const routes = (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} queries={homeQueries}/>
-    <Route path="posts">
-      <IndexRoute component={PostIndexPage} queries={postIndexQueries}/>
-      <Route path=":postId" component={PostPage} queries={postQueries}/>
+    <Route path="recipes">
+      <IndexRoute component={RecipeIndexPage} queries={recipeIndexQueries}/>
+      <Route path=":recipeId" component={RecipePage} queries={recipeQueries}/>
     </Route>
     <Route path="login" component={LoginPage}/>
     <Route path="register" component={RegisterPage}/>

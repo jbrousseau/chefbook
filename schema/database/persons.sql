@@ -10,7 +10,7 @@ create table chefbook.person (
   first_name       text not null check (char_length(first_name) < 80),
   last_name        text check (char_length(last_name) < 80),
   about            text,
-  lang_id          integer not null references chefbook.lang(id),
+  lang_id          integer not null references chefbook.lang(id) default 1,
   created_at       timestamp default now()
 
 );
