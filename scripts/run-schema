@@ -2,9 +2,11 @@
 
 set -e
 
-cd ..
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-psql -f global-drop.sql $@
+cd $DIR/../schema/database
+
+# psql -f global-drop.sql $@
 psql -f global.sql $@
 psql -f lang.sql $@
 psql -f ingredient.sql $@
