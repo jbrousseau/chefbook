@@ -10,7 +10,7 @@ class HomePage extends React.Component {
         <ul>
           {this.props.query.newestRecipes.edges.map(({ node }) => {
             return <li key={node.id}>
-              <Link to={`/recipes/${node.id}`}>{node.title} posted on {node.createdAt}</Link>
+              <Link to={`/recipes/${node.id}`}>{node.title} posted on {node.createdAt}</Link> 
               by {node.author.fullName}
             </li>
           })}

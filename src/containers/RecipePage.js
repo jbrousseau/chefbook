@@ -42,14 +42,14 @@ class RecipePage extends React.Component {
   handleChange = event => {
     const propName = event.target.dataset.prop
     const newValue = event.target.innerText
-    const oldValue = this.props.post[propName]
+    const oldValue = this.props.recipe[propName]
 
     if (newValue === oldValue) return
 
     this.props.relay.commitUpdate(
       new UpdateRecipeMutation({
-        post: this.props.post,
-        postPatch: { [propName]: newValue },
+        recipe: this.props.recipe,
+        recipePatch: { [propName]: newValue },
       })
     )
   }
@@ -59,7 +59,7 @@ class RecipePage extends React.Component {
     this.props.relay.commitUpdate(
       new DeleteRecipeMutation({
         query: this.props.query,
-        post: this.props.post,
+        recipe: this.props.recipe,
       })
     )
   }

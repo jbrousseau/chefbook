@@ -16,7 +16,7 @@ class RecipeIndex extends React.Component {
     this.props.relay.commitUpdate(
       new CreateRecipeMutation({
         query: this.props.query,
-        Recipe: data,
+        recipe: data,
       }), {
       onSuccess: () => this.setAddingRecipe(false),
     })
@@ -42,7 +42,7 @@ class RecipeIndex extends React.Component {
     return (
       <div>
         <button onClick={this.setAddingRecipe}>
-          {this.state.addingRecipe ? 'Cancel' : 'Add Topic'}
+          {this.state.addingRecipe ? 'Cancel' : 'Add Recipe'}
         </button>
         {this.state.addingRecipe &&
           <RecipeForm
@@ -59,7 +59,7 @@ class RecipeIndex extends React.Component {
 
     return (
       <div>
-        <h1>Topics</h1>
+        <h1>Recipes</h1>
         {this.props.currentPerson && this.renderRecipeForm()}
         <ScrollBottomNotifier onScrollBottom={this.handleScrollBottom}>
           {recipes.edges.length && recipes.edges.map(({ node: recipe }) =>

@@ -16,7 +16,7 @@ const {
   DEFAULT_ROLE,
   JWT_TOKEN_IDENTIFIER,
   IS_DEV_ENV
-} = process.env
+} = process.env;
 
 // we compile the frontend with webpack/babel
 const compiler = webpack(webpackConfig)
@@ -32,11 +32,11 @@ const app = new WebpackDevServer(compiler, {
 
 // Mount the postgraphql as middleware.
 app.use(postgraphql(DB_STRING, DB_SCHEMA, {
-      pgDefaultRole: DEFAULT_ROLE,
-      classicIds: true,
-      graphiql: IS_DEV_ENV=="true"?true:false,
-      jwtSecret: SECRET,
-      jwtPgTypeIdentifier: "chefbook.jwt_token",
+  pgDefaultRole: DEFAULT_ROLE,
+  classicIds: true,
+  graphiql: true,
+  jwtSecret: SECRET,
+  jwtPgTypeIdentifier: JWT_TOKEN_IDENTIFIER,
 }))
 
 // Any other path will match this and will load the index.html file.

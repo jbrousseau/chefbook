@@ -6,8 +6,8 @@ function Logo() {
   return (
     <Link className={css(logoStyles.link)} to="/">
       <h1 className={css(logoStyles.heading)}>
-        <span className={css(logoStyles.db)}>Post</span>
-        <span className={css(logoStyles.graphql)}>GraphQL</span>
+        <span className={css(logoStyles.db)}>test</span>
+        <span className={css(logoStyles.graphql)}>test</span>
       </h1>
       <p className={css(logoStyles.tagline)}>Forum Example with Relay</p>
     </Link>
